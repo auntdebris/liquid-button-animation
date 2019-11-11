@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Liquid button animation</title>
+    <style>
+      /* Demo styles */
+
+      html,
+      body {
+        font-size: 16px;
+        background: #a7a7a7;
+      }
+
+      .buttons {
+        position: relative;
+        width: 550px;
+        margin: 100px auto;
+      }
+
+      .buttons .btn {
+        margin-bottom: 50px;
+      }
+
+      /* /Demo styles */
+
+      @keyframes liquidFill {
+        0% {
+          background-position: 50% -2px; /* Center horizontally, vertical align to top minus border-width */
+        }
+
+        100% {
+          background-position: 50% -1252px; /* Center horizontally, vertical align to background height minus button height, plus border-width (1300px - 50px + 2px) */
+        }
+      }
+
+      .btn {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: auto;
+        min-width: 10.25rem;
+        padding: 11px 20px;
+        vertical-align: middle;
+
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+        text-align: center;
+        text-decoration: none;
+        color: #000;
+
+        border: 0.125rem solid #000;
+        border-radius: 0.25rem; /* Doubled the border-radius here, so the button renders properly with a 2px border */
+        border-bottom-right-radius: 1.25rem;
+
+        background-image: url("sprite-black.png");
+        background-repeat: repeat;
+        background-position: 50% -2px; /* -2px used to discount the border-width of 2px */
+
+        /*
+         * Background WIDTH is calculated proportionally
+         * from height, based on sprite image size:
+         *
+         * Formula: (button height * number of frames) * original img width / original img height
+         * Actual values: (50 * 26) * 2700 / 2600 = 1350
+         *
+         * Background HEIGHT is the button height times
+         * the number of frames:
+         *
+         * Formula: Button height * number of frames
+         * Actual values: 50 * 26 = 1300
+         */
+        background-size: 1350px 1300px;
+
+        backface-visibility: hidden; /* Prevent rendering glitches on Chrome */
+      }
+
+      .btn:hover {
+        animation-name: liquidFill;
+        animation-duration: 0.833s; /* Number of frames, minus 1, divided by desired frames per second, 30fps used here (25/30 = 0.833333333) */
+        animation-timing-function: steps(25); /* Number of frames, minus 1 */
+        animation-fill-mode: forwards; /* Stop animation at the last frame */
+
+        color: #fff;
+        transition: color 0.833s ease-in-out; /* Transition applied only on hover, so that there is no fade on mouse leave */
+      }
+
+      /* BLACK */
+
+      .btn.-black {
+        color: #000;
+        border-color: #000;
+        background-image: url("sprite-black.png");
+      }
+
+      .btn.-black:hover {
+        color: #fff;
+      }
+
+      /* WHITE */
+
+      .btn.-white {
+        color: #fff;
+        border-color: #fff;
+        background-image: url("sprite-white.png");
+      }
+
+      .btn.-white:hover {
+        color: #8c8c8c;
+      }
+
+      /* RED */
+
+      .btn.-red {
+        color: #fff;
+        border-color: transparent;
+        background-color: #da1f2b;
+        background-image: url("sprite-red.png");
+      }
+
+      .btn.-red:hover {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- RED BUTTONS -->
+
+    <div class="buttons">
+      <a href="#" class="btn -red">
+        <span class="button-text">Red button</span>
+      </a>
+
+      <br />
+
+      <a href="#" class="btn -red">
+        <span class="button-text">This is a long long red button</span>
+      </a>
+
+      <br />
+
+      <a href="#" class="btn -red">
+        <span class="button-text"
+          >This button is incredibly long. It's the anaconda of red
+          buttons!</span
+        >
+      </a>
+
+      <!-- BLACK BUTTONS -->
+
+      <div class="buttons">
+        <a href="#" class="btn -black">
+          <span class="button-text">Black button</span>
+        </a>
+
+        <br />
+
+        <a href="#" class="btn -black">
+          <span class="button-text">This is a long long black button</span>
+        </a>
+
+        <br />
+
+        <a href="#" class="btn -black">
+          <span class="button-text"
+            >This button is incredibly long. It's the anaconda of black
+            buttons!</span
+          >
+        </a>
+      </div>
+
+      <!-- WHITE BUTTONS -->
+
+      <div class="buttons">
+        <a href="#" class="btn -white">
+          <span class="button-text">White button</span>
+        </a>
+
+        <br />
+
+        <a href="#" class="btn -white">
+          <span class="button-text">This is a long long white button</span>
+        </a>
+
+        <br />
+
+        <a href="#" class="btn -white">
+          <span class="button-text"
+            >This button is incredibly long. It's the anaconda of white
+            buttons!</span
+          >
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
